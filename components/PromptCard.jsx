@@ -4,14 +4,17 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
+  const {data:session} = useSession();
+  const router=useRouter()
+  const pathname=usePathname()
   const [Copied, setCopied] = useState("");
-  const handleCopy=()=>{
+  const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => {
-      setCopied('')
+      setCopied("");
     }, 3000);
-  }
+  };
   return (
     <div className="prompt_card">
       <div className="flex justify-between items-start gap-4 ">
@@ -50,6 +53,22 @@ const PromptCard = ({ post, handletagClick, handleEdit, handleDelete }) => {
       >
         {post.tag}
       </p>
+      {session?.user.id === post.creater._id && pathname == "/profile" && (
+        <div className=" flex gap-4 flex-center mt-4  pt-3">
+          <p
+            className="font-inter green_gradient cursor-pointer text-sm "
+            onClick={handleEdit}
+          >
+            Edit
+          </p>
+          <p
+            className="font-inter orange_gradient cursor-pointer text-sm "
+            onClick={handleDelete}
+          >
+            Delete
+          </p>
+        </div>
+      )}
     </div>
   );
 };
