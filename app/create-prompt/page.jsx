@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 const CreatePrompt = () => {
+  const router=useRouter();
+  const {data:session} = useSession();
   const [Submitting, setSubmitting] = useState(false);
   const [Post, setPost] = useState({
     prompt: "",
@@ -27,7 +29,7 @@ const CreatePrompt = () => {
     } catch (e) {
       console.log(e);
     } finally {
-      Submitting(false);
+      setSubmitting(false);
     }
   };
   return (

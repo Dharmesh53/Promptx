@@ -1,4 +1,4 @@
-import Feed from '@components/feed'
+import Feed from '@components/Feed'
 const Home = () => {
   return (
     <div className='w-full flex-center flex-col'>
